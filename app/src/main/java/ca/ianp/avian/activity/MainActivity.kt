@@ -21,6 +21,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import ca.ianp.avian.R
 import ca.ianp.avian.fragment.MainActivityFragment
 import ca.ianp.avian.util.Constants
+import com.mikepenz.materialdrawer.AccountHeader
+import com.mikepenz.materialdrawer.AccountHeaderBuilder
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 
 import kotlinx.android.synthetic.activity_main.*
 
@@ -30,22 +33,24 @@ import kotlinx.android.synthetic.activity_main.*
  */
 public class MainActivity : AppCompatActivity() {
 
+    private var prefs: SharedPreferences? = null
+    private var toolbar: Toolbar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val toolbar = toolbar as Toolbar
+        // Note: Kotlin does not currently support finding included layouts by itself
+        toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        val drawer = setUpNavigationDrawer(toolbar)
-        drawer.setSelection(DRAWER_TIMELINE) // set default item
-
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        if (prefs!!.getString(Constants.PREFS_USER_TOKEN, null) == null) {
+        prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        if (prefs?.getString(Constants.PREFS_USER_TOKEN, null) == null) {
             // The user has not logged in/authorized the app before
             startActivityForResult(Intent(this, javaClass<OAuthActivity>()),
                     Constants.INTENT_OAUTH_RESULT)
         } else {
+            configureDrawer(toolbar!!)
             loadTimeline()
         }
     }
@@ -77,6 +82,9 @@ public class MainActivity : AppCompatActivity() {
                 var toastText = getString(R.string.logged_in_as) + " @" + screenName
 
                 Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show()
+
+                // Configure the drawer and load the timeline
+                configureDrawer(toolbar!!)
                 loadTimeline();
             }
         }
@@ -87,15 +95,41 @@ public class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Sets up the navigation drawer and its items.
+     * Creates and configures the [Drawer][com.mikepenz.materialdrawer.Drawer].
+     */
+    private fun configureDrawer(toolbar: Toolbar) {
+        val accountHeader = setUpAccountHeader()
+        val drawer = setUpNavigationDrawer(toolbar, accountHeader)
+        drawer.setSelection(DRAWER_TIMELINE) // set default item
+    }
+
+    /**
+     * Sets up the account header for the [Drawer][com.mikepenz.materialdrawer.Drawer]. This method
+     * should be called before [setUpNavigationDrawer].
+     */
+    private fun setUpAccountHeader(): AccountHeader {
+        return AccountHeaderBuilder()
+                .withActivity(this)
+                //.withHeaderBackground(R.drawable.account_header)  // TODO
+                .addProfiles(
+                        ProfileDrawerItem()
+                                .withEmail("@" + prefs?.getString(Constants.EXTRA_USER_SCREEN_NAME, null))
+                )
+                .build()
+    }
+
+    /**
+     * Sets up the navigation drawer and its items. This method should be called after
+     * [setUpAccountHeader].
      *
      * @param toolbar The toolbar element to attach the navigation drawer to
      * @return The created drawer object
      */
-    private fun setUpNavigationDrawer(toolbar: Toolbar): Drawer {
+    private fun setUpNavigationDrawer(toolbar: Toolbar, accountHeader: AccountHeader): Drawer {
         return DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
+                .withAccountHeader(accountHeader)
                 .withActionBarDrawerToggle(true)
                 .addDrawerItems(
                         PrimaryDrawerItem()
@@ -117,10 +151,11 @@ public class MainActivity : AppCompatActivity() {
 
                         return false
                     }
-                }).build()
+                })
+                .build()
     }
 
     companion object {
-        private val DRAWER_TIMELINE = 0
+        private val DRAWER_TIMELINE = 1
     }
 }
