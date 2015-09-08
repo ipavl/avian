@@ -1,6 +1,9 @@
 package ca.ianp.avian.activity
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +11,7 @@ import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
@@ -16,6 +20,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 import ca.ianp.avian.R
 import ca.ianp.avian.fragment.MainActivityFragment
+import ca.ianp.avian.util.Constants
 
 import kotlinx.android.synthetic.activity_main.*
 
@@ -34,6 +39,15 @@ public class MainActivity : AppCompatActivity() {
 
         val drawer = setUpNavigationDrawer(toolbar)
         drawer.setSelection(DRAWER_TIMELINE) // set default item
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        if (prefs!!.getString(Constants.PREFS_USER_TOKEN, null) == null) {
+            // The user has not logged in/authorized the app before
+            startActivityForResult(Intent(this, javaClass<OAuthActivity>()),
+                    Constants.INTENT_OAUTH_RESULT)
+        } else {
+            loadTimeline()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -50,6 +64,26 @@ public class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: kotlin.Int, resultCode: kotlin.Int, data: Intent?) {
+        super<AppCompatActivity>.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            // On result from OAuthActivity
+            Constants.INTENT_OAUTH_RESULT -> {
+                var screenName: String? = data?.getExtras()?.
+                        getString(Constants.EXTRA_USER_SCREEN_NAME) ?: return
+                var toastText = getString(R.string.logged_in_as) + " @" + screenName
+
+                Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show()
+                loadTimeline();
+            }
+        }
+    }
+
+    private fun loadTimeline() {
+
     }
 
     /**

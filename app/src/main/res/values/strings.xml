@@ -4,4 +4,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="timeline">Timeline</string>
+
+    <!-- TODO: Use string formatting here instead when it is possible with Kotlin -->
+    <string name="logged_in_as">Logged in as:</string>
 </resources>
