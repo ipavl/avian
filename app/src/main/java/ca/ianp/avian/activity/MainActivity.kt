@@ -19,7 +19,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 import ca.ianp.avian.R
-import ca.ianp.avian.fragment.MainActivityFragment
+import ca.ianp.avian.fragment.TimelineFragment
 import ca.ianp.avian.util.Constants
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
@@ -142,7 +142,7 @@ public class MainActivity : AppCompatActivity() {
 
                         when (position) {
                             DRAWER_TIMELINE -> {
-                                fragment = MainActivityFragment()
+                                fragment = TimelineFragment()
                                 toolbar.setTitle(getString(R.string.timeline))
                             }
                         }

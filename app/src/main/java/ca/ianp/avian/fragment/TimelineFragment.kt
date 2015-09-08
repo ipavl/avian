@@ -10,11 +10,11 @@ import ca.ianp.avian.R
 
 
 /**
- * A placeholder fragment containing a simple view.
+ * This fragment is used to display the user's timeline.
  */
-public class MainActivityFragment : Fragment() {
+public class TimelineFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_main, container, false)
+        return inflater!!.inflate(R.layout.fragment_timeline, container, false)
     }
 }
