@@ -64,33 +64,29 @@
     </LinearLayout>
 
     <!-- Tweet actions -->
-    <!-- TODO: Fix out of memory error from creating too many images here -->
-    <!--<LinearLayout
+    <LinearLayout
         style="?android:attr/buttonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/reply"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_reply" />
 
-        <Button
+        <ImageButton
             android:id="@+id/retweet"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_retweet" />
+            android:src="@drawable/selector_retweet" />
 
-        <Button
+        <ImageButton
             android:id="@+id/favorite"
-            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_favorite" />
-    </LinearLayout>-->
+            android:src="@drawable/selector_favorite" />
+    </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -3,5 +3,5 @@
     <!-- focused -->
     <item android:drawable="@drawable/reply_hover" android:state_focused="true" />
     <!-- default -->
-    <item android:drawable="@drawable/selector_reply" />
+    <item android:drawable="@drawable/reply" />
 </selector>

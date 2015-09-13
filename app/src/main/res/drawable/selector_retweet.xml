@@ -5,5 +5,5 @@
     <!-- focused -->
     <item android:drawable="@drawable/retweet_hover" android:state_focused="true" />
     <!-- default -->
-    <item android:drawable="@drawable/selector_retweet" />
+    <item android:drawable="@drawable/retweet" />
 </selector>
