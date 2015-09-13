@@ -43,9 +43,11 @@ public class TimelineFragment : Fragment() {
         }
 
         val adapter: TimelineAdapter = TimelineAdapter(tweets)
-        view.recycler_view.setAdapter(adapter)
-        view.recycler_view.setHasFixedSize(true)
-        view.recycler_view.setLayoutManager(LinearLayoutManager(container?.getContext()))
+        val recycler: RecyclerView = view.recycler_view
+
+        recycler.setAdapter(adapter)
+        recycler.setHasFixedSize(true)
+        recycler.setLayoutManager(LinearLayoutManager(container?.getContext()))
 
         return view
     }
