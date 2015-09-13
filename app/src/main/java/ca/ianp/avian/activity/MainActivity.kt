@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -13,19 +12,17 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 
-import com.mikepenz.materialdrawer.Drawer
-import com.mikepenz.materialdrawer.DrawerBuilder
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
-
 import ca.ianp.avian.R
 import ca.ianp.avian.fragment.TimelineFragment
 import ca.ianp.avian.util.Constants
+
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
+import com.mikepenz.materialdrawer.Drawer
+import com.mikepenz.materialdrawer.DrawerBuilder
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
-
-import kotlinx.android.synthetic.activity_main.*
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 /**
  * The main activity class of the application. Contains a toolbar, a fragments container,
