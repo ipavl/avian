@@ -4,6 +4,9 @@
     <string name="action_settings">Settings</string>
 
     <string name="timeline">Timeline</string>
+    <string name="reply">Reply</string>
+    <string name="retweet">Retweet</string>
+    <string name="favorite">Favorite</string>
 
     <!-- TODO: Use string formatting here instead when it is possible with Kotlin -->
     <string name="logged_in_as">Logged in as:</string>

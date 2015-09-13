@@ -12,14 +12,14 @@ import android.widget.TextView
 import ca.ianp.avian.R
 import ca.ianp.avian.data.Tweet
 
-import kotlinx.android.synthetic.card_tweet.*
-import kotlinx.android.synthetic.card_tweet.view.*
+import kotlinx.android.synthetic.feed_tweet.*
+import kotlinx.android.synthetic.feed_tweet.view.*
 
 public class TimelineAdapter(val tweets: List<Tweet>) : RecyclerView.Adapter<TimelineAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
         val context: Context = parent!!.getContext()
         val inflater: LayoutInflater = LayoutInflater.from(context)
-        val view: View = inflater.inflate(R.layout.card_tweet, parent, false)
+        val view: View = inflater.inflate(R.layout.feed_tweet, parent, false)
 
         return ViewHolder(view)
     }
