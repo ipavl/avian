@@ -9,6 +9,8 @@ public object Constants {
     public val TAG: String = "Avian"
     public val URI_SCHEME: String = "avian:///"
 
+    public val UPDATE_FREQUENCY: Long = 1 * 60 * 1000 // the first number is the time in minutes
+
     public val TWITTER_KEY: String = BuildConfig.TWITTER_CONSUMER_KEY
     public val TWITTER_SECRET: String = BuildConfig.TWITTER_CONSUMER_SECRET
 
@@ -20,4 +22,7 @@ public object Constants {
     public val EXTRA_USER_SCREEN_NAME: String = "user_screen_name"
 
     public val INTENT_OAUTH_RESULT: Int = 0x100;
+
+    public val INTENT_UPDATE_TIMELINE: String = "update_timeline";
+    public val INTENT_TWEETS_LIST: String = "tweets_list";
 }

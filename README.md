@@ -7,7 +7,7 @@ Done so far
 -----------
 
 * Twitter authentication/app authorization
-* Timeline adapter set up and populated with dummy data
+* Loading the user's home timeline
 
 Screenshots
 -----------

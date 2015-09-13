@@ -1,10 +1,16 @@
 package ca.ianp.avian.fragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.support.v4.app.Fragment
 import android.os.Bundle
+import android.os.Parcel
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +18,8 @@ import android.view.ViewGroup
 import ca.ianp.avian.R
 import ca.ianp.avian.adapter.TimelineAdapter
 import ca.ianp.avian.data.Tweet
+import ca.ianp.avian.service.TimelineService
+import ca.ianp.avian.util.Constants
 
 import kotlinx.android.synthetic.fragment_timeline.*
 import kotlinx.android.synthetic.fragment_timeline.view.*
@@ -22,33 +30,52 @@ import java.util.*
  */
 public class TimelineFragment : Fragment() {
 
+    private var receiver: BroadcastReceiver? = null
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater!!.inflate(R.layout.fragment_timeline, container, false)
 
-        val tweets: ArrayList<Tweet> = ArrayList<Tweet>();
+        val tweets: ArrayList<Tweet>? = ArrayList<Tweet>()
+        val parcel: Parcel = Parcel.obtain()
 
-        // TODO: Replace with actual data
-        for (i in 0..2000) {
-            // Instead of displaying the raw date, convert it to a relative time, e.g. "2 hours ago"
-            val createdAtRelative = DateUtils.getRelativeTimeSpanString(
-                    System.currentTimeMillis() - i * 60 * 360,
-                    System.currentTimeMillis(),
-                    DateUtils.SECOND_IN_MILLIS
-            )
+        parcel.writeLong(-1)
+        parcel.writeString("")
+        parcel.writeString("")
+        parcel.writeString("")
+        parcel.writeString("")
+        parcel.setDataPosition(0)
 
-            tweets.add(Tweet(i.toLong(), "DummyUser" + i, "",
-                    createdAtRelative.toString(),
-                    "Lorem ipsum dolor sit amet, eum ad ridens, laoreet delicatissimi. Tale malorum" +
-                            "mel ad, pri ridens corrumpit cu? In choro http://example.com!"));
-        }
+        tweets!!.add(Tweet(parcel))
 
-        val adapter: TimelineAdapter = TimelineAdapter(tweets)
-        val recycler: RecyclerView = view.recycler_view
+        view.recycler_view.setAdapter(TimelineAdapter(tweets))
+        view.recycler_view.setHasFixedSize(true)
+        view.recycler_view.setLayoutManager(LinearLayoutManager(container?.getContext()))
 
-        recycler.setAdapter(adapter)
-        recycler.setHasFixedSize(true)
-        recycler.setLayoutManager(LinearLayoutManager(container?.getContext()))
-
+        receiver = TimelineReceiver()
+        getActivity().registerReceiver(receiver, IntentFilter(Constants.INTENT_UPDATE_TIMELINE))
+        getActivity().startService(Intent(getActivity(), javaClass<TimelineService>()))
+        Log.d(Constants.TAG, "Starting service")
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        try {
+            Log.d(Constants.TAG, "Stopping service")
+            getActivity().stopService(Intent(getActivity(), javaClass<TimelineService>()))
+            getActivity().unregisterReceiver(receiver)
+        } catch (e: Exception) {
+            e.getMessage()
+        }
+    }
+
+    private inner class TimelineReceiver() : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val tweets: ArrayList<Tweet> = intent.getParcelableArrayListExtra(
+                    Constants.INTENT_TWEETS_LIST)
+            Log.d(Constants.TAG, "Received tweets")
+            recycler_view.setAdapter(TimelineAdapter(tweets))
+        }
     }
 }

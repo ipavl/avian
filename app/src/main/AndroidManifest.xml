@@ -27,6 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name="ca.ianp.avian.activity.OAuthActivity" />
+        <service android:name=".service.TimelineService" />
     </application>
 
 </manifest>
