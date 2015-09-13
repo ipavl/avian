@@ -38,7 +38,6 @@ public class TimelineService() : Service() {
                 .setOAuthConsumerSecret(Constants.TWITTER_SECRET)
                 .setOAuthAccessToken(token)
                 .setOAuthAccessTokenSecret(secret)
-                .setDebugEnabled(true)
                 .build()
 
         twitter = TwitterFactory(twitterConfig).getInstance()
