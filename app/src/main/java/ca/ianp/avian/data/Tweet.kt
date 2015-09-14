@@ -6,7 +6,8 @@ import android.os.Parcelable
 data class Tweet(p: Parcel) : Parcelable {
 
     var id: Long
-    var author: String
+    var authorName: String
+    var authorScreenName: String
     var avatar: String
     var createdAt: String
     var content: String
@@ -14,7 +15,8 @@ data class Tweet(p: Parcel) : Parcelable {
 
     init {
         id = p.readLong()
-        author = p.readString()
+        authorName = p.readString()
+        authorScreenName = p.readString()
         avatar = p.readString()
         createdAt = p.readString()
         content = p.readString()
@@ -26,7 +28,8 @@ data class Tweet(p: Parcel) : Parcelable {
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         dest.writeLong(id)
-        dest.writeString(author)
+        dest.writeString(authorName)
+        dest.writeString(authorScreenName)
         dest.writeString(avatar)
         dest.writeString(createdAt)
         dest.writeString(content)

@@ -43,6 +43,7 @@ public class TimelineFragment : Fragment() {
         parcel.writeString("")
         parcel.writeString("")
         parcel.writeString("")
+        parcel.writeString("")
         parcel.setDataPosition(0)
 
         tweets!!.add(Tweet(parcel))

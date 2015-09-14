@@ -73,6 +73,7 @@ public class TimelineService() : Service() {
                     val parcel: Parcel = Parcel.obtain()
 
                     parcel.writeLong(status.getId())
+                    parcel.writeString(status.getUser().getName())
                     parcel.writeString(status.getUser().getScreenName())
                     parcel.writeString(status.getUser().getProfileImageURLHttps())
                     parcel.writeString(DateUtils.getRelativeTimeSpanString(

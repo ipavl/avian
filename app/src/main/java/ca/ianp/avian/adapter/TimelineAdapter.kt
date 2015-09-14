@@ -28,7 +28,7 @@ public class TimelineAdapter(val tweets: List<Tweet>) : RecyclerView.Adapter<Tim
         val tweet: Tweet = tweets.get(position)
 
         // TODO: Author avatar
-        viewHolder!!.tweetAuthor.setText(tweet.author)
+        viewHolder!!.tweetAuthor.setText(tweet.authorName)
         viewHolder.tweetTime.setText(tweet.createdAt)
         viewHolder.tweetBody.setText(tweet.content)
     }
