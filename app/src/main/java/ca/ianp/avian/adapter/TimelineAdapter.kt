@@ -37,7 +37,7 @@ public class TimelineAdapter(val tweets: List<Tweet>) : RecyclerView.Adapter<Tim
         return tweets.size()
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    private inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         public var tweetAuthor: TextView
         //public var tweetAuthorImage: ImageView
         public var tweetTime: TextView
