@@ -48,7 +48,6 @@ public class MainActivity : AppCompatActivity() {
                     Constants.INTENT_OAUTH_RESULT)
         } else {
             configureDrawer(toolbar!!)
-            loadTimeline()
         }
     }
 
@@ -82,13 +81,8 @@ public class MainActivity : AppCompatActivity() {
 
                 // Configure the drawer and load the timeline
                 configureDrawer(toolbar!!)
-                loadTimeline();
             }
         }
-    }
-
-    private fun loadTimeline() {
-
     }
 
     /**
