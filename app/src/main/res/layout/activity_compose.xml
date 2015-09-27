@@ -7,6 +7,14 @@
     android:layout_marginStart="@dimen/activity_horizontal_margin"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/parent_tweet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/compose_parent_tweet_margin"
+        android:layout_marginStart="@dimen/compose_parent_tweet_margin"
+        android:visibility="gone" />
+
     <EditText
         android:id="@+id/compose_tweet_box"
         android:layout_width="match_parent"
@@ -18,8 +26,8 @@
         android:id="@+id/compose_buttons_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/compose_buttons_bar_padding"
-        android:layout_marginStart="@dimen/compose_buttons_bar_padding"
+        android:layout_marginEnd="@dimen/compose_buttons_bar_margin"
+        android:layout_marginStart="@dimen/compose_buttons_bar_margin"
         android:orientation="horizontal">
 
         <TextView

@@ -23,6 +23,7 @@ public object Constants {
     public val EXTRA_TWEET_ID: String = "tweet_id"
     public val EXTRA_TWEET_AUTHOR_NAME: String = "tweet_author_name"
     public val EXTRA_TWEET_AUTHOR_SCREEN_NAME: String = "tweet_author_screen_name"
+    public val EXTRA_TWEET_CONTENT: String = "tweet_content"
 
     public val INTENT_OAUTH_RESULT: Int = 0x100;
 

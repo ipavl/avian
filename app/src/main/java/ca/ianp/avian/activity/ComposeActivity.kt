@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.DateUtils
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import ca.ianp.avian.R
 import ca.ianp.avian.data.Tweet
@@ -43,24 +44,28 @@ public class ComposeActivity : AppCompatActivity() {
         twitter = Utilities.getTwitterInstance(this)
 
         val extras: Bundle? = getIntent().getExtras()
-        var tweetId: Long = -1
-        var tweetAuthorName: String? = null
-        var tweetAuthorScreenName: String? = null
+        var parentTweetId: Long = -1
+        var parentTweetAuthorName: String? = null
+        var parentTweetAuthorScreenName: String? = null
 
         // Get parent tweet details if replying to a tweet and prepopulate the reply box
         if (extras != null) {
-            tweetId = extras.getLong(Constants.EXTRA_TWEET_ID)
-            tweetAuthorName = extras.getString(Constants.EXTRA_TWEET_AUTHOR_NAME)
-            tweetAuthorScreenName = extras.getString(Constants.EXTRA_TWEET_AUTHOR_SCREEN_NAME)
+            parentTweetId = extras.getLong(Constants.EXTRA_TWEET_ID)
+            parentTweetAuthorName = extras.getString(Constants.EXTRA_TWEET_AUTHOR_NAME)
+            parentTweetAuthorScreenName = extras.getString(Constants.EXTRA_TWEET_AUTHOR_SCREEN_NAME)
+
+            // Show the parent tweet's text
+            parent_tweet.setText(extras.getString(Constants.EXTRA_TWEET_CONTENT))
+            parent_tweet.setVisibility(View.VISIBLE)
 
             // Prepopulate the parent tweet's author's screen name
-            compose_tweet_box.setText("@" + tweetAuthorScreenName + " ")
+            compose_tweet_box.setText("@" + parentTweetAuthorScreenName + " ")
 
             // Set the cursor to the end of the text
             compose_tweet_box.setSelection(compose_tweet_box.length())
 
             // Update the dialog title
-            setTitle(getString(R.string.compose_tweet_reply) + " " + tweetAuthorName)
+            setTitle(getString(R.string.compose_tweet_reply) + " " + parentTweetAuthorName)
         }
 
         // Action to take when the user clicks the send tweet button
@@ -69,7 +74,7 @@ public class ComposeActivity : AppCompatActivity() {
 
             // Only send tweets that actually have content
             if (tweetContent.trim().length() > 0) {
-                tweetSender = SendTweet(tweetId, tweetAuthorScreenName, tweetContent)
+                tweetSender = SendTweet(parentTweetId, parentTweetAuthorScreenName, tweetContent)
                 tweetSender!!.execute()
             }
         }

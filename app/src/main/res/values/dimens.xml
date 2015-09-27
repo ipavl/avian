@@ -9,5 +9,6 @@
     <dimen name="fab_elevation">2dp</dimen>
     <dimen name="fab_elevation_pressed">4dp</dimen>
 
-    <dimen name="compose_buttons_bar_padding">3dp</dimen>
+    <dimen name="compose_buttons_bar_margin">3dp</dimen>
+    <dimen name="compose_parent_tweet_margin">8dp</dimen>
 </resources>
