@@ -20,6 +20,8 @@ public object Constants {
     public val PREFS_USER_SCREEN_NAME: String = "user_screen_name"
 
     public val EXTRA_USER_SCREEN_NAME: String = "user_screen_name"
+    public val EXTRA_TWEET_ID: String = "tweet_id"
+    public val EXTRA_TWEET_AUTHOR: String = "tweet_author"
 
     public val INTENT_OAUTH_RESULT: Int = 0x100;
 
