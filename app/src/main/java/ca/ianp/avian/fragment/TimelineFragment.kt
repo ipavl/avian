@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.os.Parcel
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.format.DateUtils
@@ -16,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import ca.ianp.avian.R
+import ca.ianp.avian.activity.ComposeActivity
 import ca.ianp.avian.adapter.TimelineAdapter
 import ca.ianp.avian.data.Tweet
 import ca.ianp.avian.service.TimelineService
@@ -48,6 +50,12 @@ public class TimelineFragment : Fragment() {
 
         tweets!!.add(Tweet(parcel))
 
+        // Floating Action Button click listener
+        view.compose_tweet.setOnClickListener {
+            val composeIntent: Intent = Intent(getActivity(), javaClass<ComposeActivity>())
+            startActivity(composeIntent)
+        }
+
         view.recycler_view.setAdapter(TimelineAdapter(tweets))
         view.recycler_view.setHasFixedSize(true)
         view.recycler_view.setLayoutManager(LinearLayoutManager(container?.getContext()))
@@ -60,7 +68,7 @@ public class TimelineFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        super<Fragment>.onDestroyView()
 
         try {
             Log.d(Constants.TAG, "Stopping service")
