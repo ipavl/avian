@@ -42,11 +42,7 @@ public class TimelineAdapter(val tweets: List<Tweet>) : RecyclerView.Adapter<Tim
         // Handle reply button clicks by sending the tweet ID and author to the ComposeActivity
         view!!.reply.setOnClickListener {
             val composeIntent: Intent = Intent(context, javaClass<ComposeActivity>())
-
-            composeIntent.putExtra(Constants.EXTRA_TWEET_ID, tweet.id)
-            composeIntent.putExtra(Constants.EXTRA_TWEET_AUTHOR_NAME, tweet.authorName)
-            composeIntent.putExtra(Constants.EXTRA_TWEET_AUTHOR_SCREEN_NAME, tweet.authorScreenName)
-            composeIntent.putExtra(Constants.EXTRA_TWEET_CONTENT, tweet.content)
+            composeIntent.putExtra(Constants.EXTRA_TWEET, tweet)
 
             context!!.startActivity(composeIntent)
         }

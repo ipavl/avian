@@ -50,12 +50,14 @@ public class ComposeActivity : AppCompatActivity() {
 
         // Get parent tweet details if replying to a tweet and prepopulate the reply box
         if (extras != null) {
-            parentTweetId = extras.getLong(Constants.EXTRA_TWEET_ID)
-            parentTweetAuthorName = extras.getString(Constants.EXTRA_TWEET_AUTHOR_NAME)
-            parentTweetAuthorScreenName = extras.getString(Constants.EXTRA_TWEET_AUTHOR_SCREEN_NAME)
+            val tweet: Tweet = extras.getParcelable(Constants.EXTRA_TWEET)
+
+            parentTweetId = tweet.id
+            parentTweetAuthorName = tweet.authorName
+            parentTweetAuthorScreenName = tweet.authorScreenName
 
             // Show the parent tweet's text
-            parent_tweet.setText(extras.getString(Constants.EXTRA_TWEET_CONTENT))
+            parent_tweet.setText(tweet.content)
             parent_tweet.setVisibility(View.VISIBLE)
 
             // Prepopulate the parent tweet's author's screen name
