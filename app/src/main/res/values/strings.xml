@@ -8,6 +8,10 @@
     <string name="retweet">Retweet</string>
     <string name="favorite">Favorite</string>
 
+    <string name="compose_tweet_hint">Write your tweet here…</string>
+    <string name="compose_tweet">Compose tweet</string>
+    <string name="send_tweet">Send</string>
+
     <!-- TODO: Use string formatting here instead when it is possible with Kotlin -->
     <string name="logged_in_as">Logged in as:</string>
 </resources>

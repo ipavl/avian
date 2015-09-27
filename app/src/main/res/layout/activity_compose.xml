@@ -2,6 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
     android:orientation="vertical">
 
+    <EditText
+        android:id="@+id/compose_tweet_box"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="@string/compose_tweet_hint"
+        android:maxLength="@integer/max_tweet_length" />
+
+    <ImageButton
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="end"
+        android:background="@null"
+        android:contentDescription="@string/send_tweet"
+        android:scaleType="fitEnd"
+        android:src="@drawable/selector_send" />
 </LinearLayout>
