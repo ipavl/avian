@@ -50,6 +50,9 @@ public class ComposeActivity : AppCompatActivity() {
         if (extras != null) {
             tweetId = extras.getLong(Constants.EXTRA_TWEET_ID)
             tweetAuthor = extras.getString(Constants.EXTRA_TWEET_AUTHOR)
+
+            compose_tweet_box.setText("@" + tweetAuthor + " ")
+            compose_tweet_box.setSelection(compose_tweet_box.length())  // set cursor to end of text
         }
 
         // Action to take when the user clicks the send tweet button

@@ -1,6 +1,7 @@
 package ca.ianp.avian.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,18 +11,24 @@ import android.widget.ImageView
 import android.widget.TextView
 
 import ca.ianp.avian.R
+import ca.ianp.avian.activity.ComposeActivity
 import ca.ianp.avian.data.Tweet
+import ca.ianp.avian.util.Constants
 
 import kotlinx.android.synthetic.feed_tweet.*
 import kotlinx.android.synthetic.feed_tweet.view.*
 
 public class TimelineAdapter(val tweets: List<Tweet>) : RecyclerView.Adapter<TimelineAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
-        val context: Context = parent!!.getContext()
-        val inflater: LayoutInflater = LayoutInflater.from(context)
-        val view: View = inflater.inflate(R.layout.feed_tweet, parent, false)
 
-        return ViewHolder(view)
+    private var context: Context? = null
+    private var view: View? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder? {
+        context = parent!!.getContext()
+        val inflater: LayoutInflater = LayoutInflater.from(context)
+        view = inflater.inflate(R.layout.feed_tweet, parent, false)
+
+        return ViewHolder(view!!)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder?, position: Int) {
@@ -31,6 +38,16 @@ public class TimelineAdapter(val tweets: List<Tweet>) : RecyclerView.Adapter<Tim
         viewHolder!!.tweetAuthor.setText(tweet.authorName)
         viewHolder.tweetTime.setText(tweet.createdAt)
         viewHolder.tweetBody.setText(tweet.content)
+
+        // Handle reply button clicks by sending the tweet ID and author to the ComposeActivity
+        view!!.reply.setOnClickListener {
+            val composeIntent: Intent = Intent(context, javaClass<ComposeActivity>())
+
+            composeIntent.putExtra(Constants.EXTRA_TWEET_ID, tweet.id)
+            composeIntent.putExtra(Constants.EXTRA_TWEET_AUTHOR, tweet.authorScreenName)
+
+            context!!.startActivity(composeIntent)
+        }
     }
 
     override fun getItemCount(): Int {

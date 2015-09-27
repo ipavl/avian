@@ -8,7 +8,7 @@ Done so far
 
 * Twitter authentication/app authorization
 * Loading the user's home timeline
-* Composing new tweets
+* Composing new tweets and replying to others
 
 Screenshots
 -----------
