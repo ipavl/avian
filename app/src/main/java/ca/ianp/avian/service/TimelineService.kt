@@ -11,6 +11,7 @@ import android.text.format.DateUtils
 import android.util.Log
 import ca.ianp.avian.data.Tweet
 import ca.ianp.avian.util.Constants
+import ca.ianp.avian.util.Utilities
 import twitter4j.Status
 import twitter4j.Twitter
 import twitter4j.TwitterFactory
@@ -27,20 +28,7 @@ public class TimelineService() : Service() {
     override fun onCreate() {
         super.onCreate()
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this)
-
-        val token: String = prefs!!.getString(Constants.PREFS_USER_TOKEN, null)
-        val secret: String = prefs!!.getString(Constants.PREFS_USER_SECRET, null)
-
-        // Configuration for the Twitter4J instance
-        val twitterConfig: Configuration = ConfigurationBuilder()
-                .setOAuthConsumerKey(Constants.TWITTER_KEY)
-                .setOAuthConsumerSecret(Constants.TWITTER_SECRET)
-                .setOAuthAccessToken(token)
-                .setOAuthAccessTokenSecret(secret)
-                .build()
-
-        twitter = TwitterFactory(twitterConfig).getInstance()
+        twitter = Utilities.getTwitterInstance(this)
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
