@@ -44,17 +44,23 @@ public class ComposeActivity : AppCompatActivity() {
 
         val extras: Bundle? = getIntent().getExtras()
         var tweetId: Long = -1
-        var tweetAuthor: String? = null
+        var tweetAuthorName: String? = null
+        var tweetAuthorScreenName: String? = null
 
         // Get parent tweet details if replying to a tweet and prepopulate the reply box
         if (extras != null) {
             tweetId = extras.getLong(Constants.EXTRA_TWEET_ID)
-            tweetAuthor = extras.getString(Constants.EXTRA_TWEET_AUTHOR)
+            tweetAuthorName = extras.getString(Constants.EXTRA_TWEET_AUTHOR_NAME)
+            tweetAuthorScreenName = extras.getString(Constants.EXTRA_TWEET_AUTHOR_SCREEN_NAME)
 
-            compose_tweet_box.setText("@" + tweetAuthor + " ")
-            compose_tweet_box.setSelection(compose_tweet_box.length())  // set cursor to end of text
+            // Prepopulate the parent tweet's author's screen name
+            compose_tweet_box.setText("@" + tweetAuthorScreenName + " ")
 
-            setTitle(getString(R.string.compose_tweet_reply) + tweetAuthor)
+            // Set the cursor to the end of the text
+            compose_tweet_box.setSelection(compose_tweet_box.length())
+
+            // Update the dialog title
+            setTitle(getString(R.string.compose_tweet_reply) + " " + tweetAuthorName)
         }
 
         // Action to take when the user clicks the send tweet button
@@ -63,7 +69,7 @@ public class ComposeActivity : AppCompatActivity() {
 
             // Only send tweets that actually have content
             if (tweetContent.trim().length() > 0) {
-                tweetSender = SendTweet(tweetId, tweetAuthor, tweetContent)
+                tweetSender = SendTweet(tweetId, tweetAuthorScreenName, tweetContent)
                 tweetSender!!.execute()
             }
         }
@@ -92,6 +98,10 @@ public class ComposeActivity : AppCompatActivity() {
         chars_left_count.setText((maxTweetLength - chars_left_count.length()).toString())
     }
 
+    /**
+     * Sends a tweet in the background and then closes the activity.
+     * TODO: Finish activity on success, show error on fail
+     */
     private inner class SendTweet(id: Long, author: String?, content: String) : AsyncTask<Void, Void, String>() {
 
         var id: Long = -1

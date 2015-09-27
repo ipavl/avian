@@ -44,7 +44,8 @@ public class TimelineAdapter(val tweets: List<Tweet>) : RecyclerView.Adapter<Tim
             val composeIntent: Intent = Intent(context, javaClass<ComposeActivity>())
 
             composeIntent.putExtra(Constants.EXTRA_TWEET_ID, tweet.id)
-            composeIntent.putExtra(Constants.EXTRA_TWEET_AUTHOR, tweet.authorScreenName)
+            composeIntent.putExtra(Constants.EXTRA_TWEET_AUTHOR_NAME, tweet.authorName)
+            composeIntent.putExtra(Constants.EXTRA_TWEET_AUTHOR_SCREEN_NAME, tweet.authorScreenName)
 
             context!!.startActivity(composeIntent)
         }
