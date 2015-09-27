@@ -46,13 +46,15 @@ public class ComposeActivity : AppCompatActivity() {
         var tweetId: Long = -1
         var tweetAuthor: String? = null
 
-        // Get parent tweet details if replying to a tweet
+        // Get parent tweet details if replying to a tweet and prepopulate the reply box
         if (extras != null) {
             tweetId = extras.getLong(Constants.EXTRA_TWEET_ID)
             tweetAuthor = extras.getString(Constants.EXTRA_TWEET_AUTHOR)
 
             compose_tweet_box.setText("@" + tweetAuthor + " ")
             compose_tweet_box.setSelection(compose_tweet_box.length())  // set cursor to end of text
+
+            setTitle(getString(R.string.compose_tweet_reply) + tweetAuthor)
         }
 
         // Action to take when the user clicks the send tweet button
